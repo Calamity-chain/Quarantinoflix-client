@@ -18,7 +18,7 @@ export class MovieCard extends React.Component {
         border='danger'
         style={{ width: '200', height: 'auto' }}
       >
-        <Card.Header>{movie.title}</Card.Header>
+        <Card.Header>{movie.Title}</Card.Header>
         <img
           className='movie-poster'
           src={movie.imagePath}

@@ -24,18 +24,18 @@ export class MovieView extends React.Component {
         <Card style={{ width: '18rem' }}>
           <Card.Img variant='top' src={movie.imagePath} />
           <Card.Body>
-            <Card.Title>{movie.title}</Card.Title>
+            <Card.Title>{movie.Title}</Card.Title>
             <Card.Text>
               <span className='label text-danger'>Description: </span>
-              <span className='value'>{movie.description}</span>
+              <span className='value'>{movie.Description}</span>
             </Card.Text>
             <Card.Text>
               <span className='label text-danger'>Genre: </span>
-              <span className='value'>{movie.genre.name}</span>
+              <span className='value'>{movie.Genre.Name}</span>
             </Card.Text>
             <Card.Text>
               <span className='label text-danger'>Director: </span>
-              <span className='value'>{movie.director.name}</span>
+              <span className='value'>{movie.Director.Name}</span>
             </Card.Text>
             <Button onClick={() => onClick()} variant='primary'>
               Back
