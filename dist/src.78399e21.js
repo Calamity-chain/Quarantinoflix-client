@@ -47972,9 +47972,11 @@ function LoginView(props) {
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
-  }, _defineProperty(_React$createElement, "type", "password"), _defineProperty(_React$createElement, "placeholder", "Enter Password"), _React$createElement))), /*#__PURE__*/_react.default.createElement("p", null, "Dont have an account?", /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-    onClick: handleRegister,
-    variant: "link"
+  }, _defineProperty(_React$createElement, "type", "password"), _defineProperty(_React$createElement, "placeholder", "Enter Password"), _React$createElement))), /*#__PURE__*/_react.default.createElement("p", null, "Dont have an account?", /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button
+  /* onClick={handleRegister} -- (link this to log in registration page)  */
+  , {
+    variant: "link",
+    type: "button"
   }, "Register")), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     onClick: handleSubmit,
     variant: "primary",
@@ -48180,12 +48182,14 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         className: "label text-danger"
       }, "Director: "), /*#__PURE__*/_react.default.createElement("span", {
         className: "value"
-      }, movie.Director.Name)), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      }, movie.Director.Name))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        className: "text-left",
         onClick: function onClick() {
           return _onClick();
         },
-        variant: "primary"
-      }, "Back"))));
+        variant: "light",
+        block: true
+      }, "Back")));
     }
   }]);
 
@@ -48195,18 +48199,18 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
 exports.MovieView = MovieView;
 MovieView.propTypes = {
   movie: _propTypes.default.shape({
-    title: _propTypes.default.string.isRequired,
-    description: _propTypes.default.string.isRequired,
-    imagePath: _propTypes.default.string.isRequired,
-    genre: _propTypes.default.shape({
-      name: _propTypes.default.string.isRequired,
-      description: _propTypes.default.string.isRequired
+    Title: _propTypes.default.string.isRequired,
+    Description: _propTypes.default.string.isRequired,
+    ImagePath: _propTypes.default.string.isRequired,
+    Genre: _propTypes.default.shape({
+      Name: _propTypes.default.string.isRequired,
+      Description: _propTypes.default.string.isRequired
     }),
-    director: _propTypes.default.shape({
-      name: _propTypes.default.string.isRequired,
-      bio: _propTypes.default.string.isRequired,
-      birth: _propTypes.default.string.isRequired,
-      death: _propTypes.default.string
+    Director: _propTypes.default.shape({
+      Name: _propTypes.default.string.isRequired,
+      Bio: _propTypes.default.string.isRequired,
+      Birth: _propTypes.default.string,
+      Death: _propTypes.default.string
     })
   }).isRequired,
   onClick: _propTypes.default.func.isRequired
