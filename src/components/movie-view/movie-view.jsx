@@ -37,10 +37,8 @@ export class MovieView extends React.Component {
               <span className='label text-danger'>Director: </span>
               <span className='value'>{movie.Director.Name}</span>
             </Card.Text>
-            <Button onClick={() => onClick()} variant='primary'>
-              Back
-            </Button>
           </Card.Body>
+          <Button className='text-left' onClick={() => onClick()} variant='light' block>Back</Button>
         </Card>
       </div>
     );
@@ -49,18 +47,18 @@ export class MovieView extends React.Component {
 
 MovieView.propTypes = {
   movie: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    imagePath: PropTypes.string.isRequired,
-    genre: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
+    Title: PropTypes.string.isRequired,
+    Description: PropTypes.string.isRequired,
+    ImagePath: PropTypes.string.isRequired,
+    Genre: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Description: PropTypes.string.isRequired,
     }),
-    director: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      bio: PropTypes.string.isRequired,
-      birth: PropTypes.string.isRequired,
-      death: PropTypes.string,
+    Director: PropTypes.shape({
+      Name: PropTypes.string.isRequired,
+      Bio: PropTypes.string.isRequired,
+      Birth: PropTypes.string,
+      Death: PropTypes.string,
     }),
   }).isRequired,
   onClick: PropTypes.func.isRequired,

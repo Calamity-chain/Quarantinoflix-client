@@ -5,6 +5,7 @@ import { Form, Button } from 'react-bootstrap';
 
 import './login-view.scss';
 
+
 export function LoginView(props) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -41,7 +42,7 @@ export function LoginView(props) {
         </Form.Group>
         <p>
           Dont have an account?
-          <Button onClick={handleRegister} variant='link'>
+          <Button /* onClick={handleRegister} -- (link this to log in registration page)  */ variant='link' type='button'>
             Register
           </Button>
         </p>
