@@ -17,7 +17,7 @@ export class MovieView extends React.Component {
 
     if (!movie) return null;
 
-    // if (this.state.initialState === '') return ;
+  
 
     return (
       <div className='movie-view'>
@@ -38,7 +38,7 @@ export class MovieView extends React.Component {
               <span className='value'>{movie.Director.Name}</span>
             </Card.Text>
           </Card.Body>
-          <Button className='text-left' onClick={() => onClick()} variant='light' block>Back</Button>
+          <Button className='text-left' onClick={() => { onClick(null); }} variant='light' block>Back</Button>
         </Card>
       </div>
     );
