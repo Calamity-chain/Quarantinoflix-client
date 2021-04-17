@@ -62,4 +62,3 @@ LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
   onRegister: PropTypes.func,
 };
-
