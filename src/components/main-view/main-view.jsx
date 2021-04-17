@@ -52,32 +52,52 @@ onLoggedIn(user) {
   });
 }
 
+onRegister(register) {
+  this.setState({
+    register,
+  });
+}
+
+onBackClick() {
+  this.setState({
+    selectedMovie: null
+  });
+}
 
 render() {
-  const { movies, selectedMovie, user } = this.state;
+  const { movies, selectedMovie, user, register } = this.state;
 
   /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
 
   if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
+  
+  // if (!register) return <RegistrationView onRegister={(register) => this.onRegister(register)}/>;
+
 
   // Before the movies have been loaded
   if (!movies) return <div className="main-view"/>;
 
   return (
-    <Row className="main-view justify-content-md-center">
+    <div className="main-view">
       {selectedMovie
-        ? (
-          <Col md={8}>
-            <MovieView movie={selectedMovie} onBackClick={movie => this.onMovieClick(null)} />
-          </Col>
-        )
-        : movies.map(movie => (
-          <Col md={3}>
-            <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
-          </Col>
-        ))
-      }
-    </Row>
-  );
-}
+        ? ( 
+          <Row className="justify-content-md-center">
+            <Col md={8}>
+              <MovieView movie={selectedMovie} onClick={() => this.onBackClick()}/> 
+            </Col>
+          </Row> 
+          )
+          : (
+            <Row className="justify-content-md-center">
+              {movies.map(movie => (
+                <Col md={3}>
+                <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
+                </Col>
+              ))}
+            </Row>
+          )
+        }
+      </div>
+    );
+ }
 }
