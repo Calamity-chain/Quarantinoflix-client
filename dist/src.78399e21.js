@@ -47953,7 +47953,7 @@ function LoginView(props) {
     className: "form-login"
   }, /*#__PURE__*/_react.default.createElement("h1", {
     className: "text-danger"
-  }, "Welcome to myFlix!"), /*#__PURE__*/_react.default.createElement("p", {
+  }, "Welcome to Quarantino Flix!"), /*#__PURE__*/_react.default.createElement("p", {
     className: "mb-5"
   }, "Please login to continue."), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Form.Group, {
     controlId: "formBasicEmail"
@@ -48179,8 +48179,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       var _this$props = this.props,
           movie = _this$props.movie,
           _onClick = _this$props.onClick;
-      if (!movie) return null; // if (this.state.initialState === '') return ;
-
+      if (!movie) return null;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "movie-view"
       }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, {
@@ -48205,7 +48204,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
       }, movie.Director.Name))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         className: "text-left",
         onClick: function onClick() {
-          return _onClick();
+          _onClick(null);
         },
         variant: "light",
         block: true
@@ -48342,6 +48341,20 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "onRegister",
+    value: function onRegister(register) {
+      this.setState({
+        register: register
+      });
+    }
+  }, {
+    key: "onBackClick",
+    value: function onBackClick() {
+      this.setState({
+        selectedMovie: null
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -48349,28 +48362,34 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       var _this$state = this.state,
           movies = _this$state.movies,
           selectedMovie = _this$state.selectedMovie,
-          user = _this$state.user;
+          user = _this$state.user,
+          register = _this$state.register;
       /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
 
       if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
           return _this3.onLoggedIn(user);
         }
-      }); // Before the movies have been loaded
+      }); // if (!register) return <RegistrationView onRegister={(register) => this.onRegister(register)}/>;
+      // Before the movies have been loaded
 
       if (!movies) return /*#__PURE__*/_react.default.createElement("div", {
         className: "main-view"
       });
-      return /*#__PURE__*/_react.default.createElement(_Row.default, {
-        className: "main-view justify-content-md-center"
-      }, selectedMovie ? /*#__PURE__*/_react.default.createElement(_Col.default, {
+      return /*#__PURE__*/_react.default.createElement("div", {
+        className: "main-view"
+      }, selectedMovie ? /*#__PURE__*/_react.default.createElement(_Row.default, {
+        className: "justify-content-md-center"
+      }, /*#__PURE__*/_react.default.createElement(_Col.default, {
         md: 8
       }, /*#__PURE__*/_react.default.createElement(_movieView.MovieView, {
         movie: selectedMovie,
-        onBackClick: function onBackClick(movie) {
-          return _this3.onMovieClick(null);
+        onClick: function onClick() {
+          return _this3.onBackClick();
         }
-      })) : movies.map(function (movie) {
+      }))) : /*#__PURE__*/_react.default.createElement(_Row.default, {
+        className: "justify-content-md-center"
+      }, movies.map(function (movie) {
         return /*#__PURE__*/_react.default.createElement(_Col.default, {
           md: 3
         }, /*#__PURE__*/_react.default.createElement(_movieCard.MovieCard, {
@@ -48380,7 +48399,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             return _this3.onMovieClick(movie);
           }
         }));
-      }));
+      })));
     }
   }]);
 
