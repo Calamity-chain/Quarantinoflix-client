@@ -6,12 +6,17 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Card, Button } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
 
 import { RegistrationView } from '../registration-view/registration-view';
 import { LoginView } from '../login-view/login-view';
 import { MovieCard } from '../movie-card/movie-card';
 import { MovieView } from '../movie-view/movie-view';
+import { DirectorView } from '../director-view/director-view';
+import { GenreView } from '../genre-view/genre-view';
+import { ProfileView } from '../profile-view/profile-view';
 
+import { Link } from "react-router-dom"; 
 
 import './main-view.scss';
 
@@ -19,11 +24,11 @@ export class MainView extends React.Component {
 
   constructor() {
     super();
-// Initial state is set to null
+  
     this.state = {
       movies: [],
+      user: null,
       selectedMovie: null,
-      user: null
     };
   }
 
@@ -95,6 +100,8 @@ onBackClick() {
     selectedMovie: null
   });
 }
+ 
+
 
 render() {
   const { movies, selectedMovie, user, register } = this.state;
@@ -103,13 +110,17 @@ render() {
 
   if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
   
-  // if (!register) return <RegistrationView onRegister={(register) => this.onRegister(register)}/>;
-
 
   // Before the movies have been loaded
   if (!movies) return <div className="main-view"/>;
 
+   // if (!register) return <RegistrationView onRegister={(register) => this.onRegister(register)}/>;
+   if(window.location.pathname === '/register'){
+    return <RegistrationView />
+  }
+
   return (
+    <Container>
     <Router>
     <div className="main-view">
     <Route exact path="/" render={() => {
@@ -126,6 +137,13 @@ render() {
       if (!movies) return <div className="main-view"/>;
       return <DirectorView director={movies.find(m => m.Director.Name === match.params.name).Director}/>}
       } />
+    <Route exact path = "/users/:username"
+      render={() => {
+        if (!user) return <LoginView onLoggedIn={(data) => this.onLoggedIn(data)}/>;
+        if (movies.length === 0) return;
+        return <ProfileView movies={movies}/>
+      }}/>
+    <Route path></Route>
         <Button
                       variant="link"
                       className="navbar-link"
@@ -133,26 +151,9 @@ render() {
                     >
                       Sign Out
                     </Button>
-      {/* {selectedMovie
-        ? ( 
-          <Row className="justify-content-md-center">
-            <Col md={8}>
-              <MovieView movie={selectedMovie} onClick={() => this.onBackClick()}/> 
-            </Col>
-          </Row> 
-          )
-          : (
-            <Row className="justify-content-md-center">
-              {movies.map(movie => (
-                <Col md={3}>
-                <MovieCard key={movie._id} movie={movie} onClick={movie => this.onMovieClick(movie)}/>
-                </Col>
-              ))}
-            </Row>
-          )
-        } */}
       </div>
       </Router>
+      </Container>
     );
  }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { Card, Button } from 'react-bootstrap';
 
@@ -11,6 +13,26 @@ export class MovieView extends React.Component {
 
     this.state = {};
   }
+
+addFavoriteMovie(movie) {
+  let token = localStorage.getItem("token");
+  let url = "https://quarantinoflix.herokuapp.com/users/" +
+  localStorage.getItem("user") +
+  "/movies/" + 
+  movie._id;
+
+  console.log(token);
+
+  axios
+  .post(url, "", {
+    headers: { Authorization: `Bearer ${token}`},
+  })
+  .then((response) => {
+    console.log(response);
+    window.open("/","_self");
+    alert("Added to Favorites!");
+  });
+}
 
   render() {
     const { movie, onClick } = this.props;
@@ -25,6 +47,15 @@ export class MovieView extends React.Component {
           <Card.Img variant='top' src={movie.imagePath} />
           <Card.Body>
             <Card.Title>{movie.Title}</Card.Title>
+            <div>
+              <Button
+                variant="primary"
+                size="sm"
+                onClick={() => this.addFavorite(movie)}
+              >
+                Add to Favorites
+              </Button>
+            </div>
             <Card.Text>
               <span className='label text-danger'>Description: </span>
               <span className='value'>{movie.Description}</span>
