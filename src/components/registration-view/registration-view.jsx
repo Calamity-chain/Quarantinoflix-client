@@ -12,11 +12,25 @@ export function RegisterView(props) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [birthday, setBirthday] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
-    console.log(username, password, email, birthday);
-    props.onRegister('test');
+    axios.post('https://quarantinoflix.herokuapp.com/users', {
+      Username: username,
+      Password: password,
+      Email: email,
+      Birthday: birthday
+    })
+    .then(response => {
+      const data = response.data;
+      console.log(data);
+      window.open('/', '_self'); // the second argument '_self' is necessary so that the page will open in the current tab
+    })
+    .catch(e => {
+      console.log('error registering the user')
+    });
   };
+
+
 
   return (
     <React.Fragment>
@@ -69,7 +83,7 @@ export function RegisterView(props) {
           />
         </Form.Group>
 
-        <Button onClick={handleSubmit} variant='primary' type='submit'>
+        <Button onClick={handleRegister} variant='primary' type='submit'>
           Submit
         </Button>
       </Form>

@@ -55,8 +55,8 @@ export function LoginView(props) {
         </Form.Group>
         <p>
           Dont have an account?
-          <Button /* onClick={handleRegister} -- (link this to log in registration page)  */ variant='link' type='button'>
-            Register
+          <Button variant="light" onClick={ () => window.location.pathname = '/register'}>
+                Register
           </Button>
         </p>
         <Button onClick={handleSubmit} variant='primary' type='submit'>
@@ -75,3 +75,5 @@ LoginView.propTypes = {
   onLoggedIn: PropTypes.func.isRequired,
   onRegister: PropTypes.func,
 };
+
+export default LoginView;
