@@ -5,7 +5,7 @@ import { Form, Button } from 'react-bootstrap';
 
 import './registration-view.scss';
 
-export function RegisterView(props) {
+export function RegistrationView(props) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -91,7 +91,7 @@ export function RegisterView(props) {
   );
 }
 
-RegisterView.propTypes = {
+RegistrationView.propTypes = {
   register: PropTypes.shape({
     username: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,

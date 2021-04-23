@@ -14,7 +14,7 @@ export class MovieView extends React.Component {
     this.state = {};
   }
 
-addFavoriteMovie(movie) {
+addFavorite(movie) {
   let token = localStorage.getItem("token");
   let url = "https://quarantinoflix.herokuapp.com/users/" +
   localStorage.getItem("user") +
@@ -35,7 +35,7 @@ addFavoriteMovie(movie) {
 }
 
   render() {
-    const { movie, onClick } = this.props;
+    const { movie } = this.props;
 
     if (!movie) return null;
 
@@ -76,7 +76,11 @@ addFavoriteMovie(movie) {
               <Button variant="link">Genre</Button>
             </Link>
           </Card.Body>
-          <Button className='text-left' onClick={() => { onClick(null); }} variant='light' block>Back</Button>
+          <Link to={`/`}>
+                    <Button className="text-left" variant="danger">
+                      Back
+                    </Button>
+                  </Link>
         </Card>
       </div>
     );
@@ -99,5 +103,4 @@ MovieView.propTypes = {
       Death: PropTypes.string,
     }),
   }).isRequired,
-  onClick: PropTypes.func.isRequired,
 };

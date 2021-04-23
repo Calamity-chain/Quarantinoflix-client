@@ -50812,7 +50812,7 @@ module.hot.accept(reloadCSS);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.RegisterView = RegisterView;
+exports.RegistrationView = RegistrationView;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -50840,7 +50840,7 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function RegisterView(props) {
+function RegistrationView(props) {
   var _useState = (0, _react.useState)(''),
       _useState2 = _slicedToArray(_useState, 2),
       username = _useState2[0],
@@ -50940,7 +50940,7 @@ function RegisterView(props) {
   }, "Submit")));
 }
 
-RegisterView.propTypes = {
+RegistrationView.propTypes = {
   register: _propTypes.default.shape({
     username: _propTypes.default.string.isRequired,
     password: _propTypes.default.string.isRequired,
@@ -51136,20 +51136,16 @@ var MovieCard = /*#__PURE__*/function (_React$Component) {
       // This is given to the <MovieCard/> component by the outer world
       // which, in this case, is `MainView`, as `MainView` is what’s
       // connected to your database via the movies endpoint of your API
-      var _this$props = this.props,
-          movie = _this$props.movie,
-          _onClick = _this$props.onClick;
+      var movie = this.props.movie;
       return /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Img, {
         variant: "top",
         src: movie.ImagePath
       }), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Body, null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Title, null, movie.Title), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Card.Text, null, movie.Description), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
         to: "/movies/".concat(movie._id)
       }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-        onClick: function onClick() {
-          return _onClick(movie);
-        },
-        variant: "link"
-      }, "Open"))));
+        variant: "danger",
+        className: "align-self-end"
+      }, "View Details"))));
     }
   }]);
 
@@ -51188,8 +51184,7 @@ MovieCard.propTypes = {
       Birth: _propTypes.default.string,
       Death: _propTypes.default.string
     })
-  }).isRequired,
-  onClick: _propTypes.default.func.isRequired
+  }).isRequired
 };
 },{"react":"../node_modules/react/index.js","prop-types":"../node_modules/prop-types/index.js","react-bootstrap/Button":"../node_modules/react-bootstrap/esm/Button.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","react-bootstrap/Row":"../node_modules/react-bootstrap/esm/Row.js","react-bootstrap/Col":"../node_modules/react-bootstrap/esm/Col.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","./movie-card.scss":"components/movie-card/movie-card.scss"}],"components/movie-view/movie-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -51256,8 +51251,8 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
   }
 
   _createClass(MovieView, [{
-    key: "addFavoriteMovie",
-    value: function addFavoriteMovie(movie) {
+    key: "addFavorite",
+    value: function addFavorite(movie) {
       var token = localStorage.getItem("token");
 
       var url = "https://quarantinoflix.herokuapp.com/users/" + localStorage.getItem("user") + "/movies/" + movie._id;
@@ -51279,9 +51274,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var _this$props = this.props,
-          movie = _this$props.movie,
-          _onClick = _this$props.onClick;
+      var movie = this.props.movie;
       if (!movie) return null;
       return /*#__PURE__*/_react.default.createElement("div", {
         className: "movie-view"
@@ -51318,14 +51311,12 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
         to: "/genres/".concat(movie.Genre.Name)
       }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         variant: "link"
-      }, "Genre"))), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+      }, "Genre"))), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
+        to: "/"
+      }, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
         className: "text-left",
-        onClick: function onClick() {
-          _onClick(null);
-        },
-        variant: "light",
-        block: true
-      }, "Back")));
+        variant: "danger"
+      }, "Back"))));
     }
   }]);
 
@@ -51348,8 +51339,7 @@ MovieView.propTypes = {
       Birth: _propTypes.default.string,
       Death: _propTypes.default.string
     })
-  }).isRequired,
-  onClick: _propTypes.default.func.isRequired
+  }).isRequired
 };
 },{"react":"../node_modules/react/index.js","axios":"../node_modules/axios/index.js","prop-types":"../node_modules/prop-types/index.js","react-router-dom":"../node_modules/react-router-dom/esm/react-router-dom.js","react-bootstrap":"../node_modules/react-bootstrap/esm/index.js","./movie-view.scss":"components/movie-view/movie-view.scss"}],"components/director-view/director-view.scss":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
@@ -51501,11 +51491,12 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
 
 exports.DirectorView = DirectorView;
 DirectorView.propTypes = {
-  Movie: _propTypes.default.shape({
+  movie: _propTypes.default.shape({
     Director: {
       Name: _propTypes.default.string.isRequired,
       Bio: _propTypes.default.string.isRequired,
-      Birth: _propTypes.default.string.isRequired
+      Birth: _propTypes.default.string,
+      Death: _propTypes.default.string
     }
   })
 };
@@ -51636,7 +51627,7 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
 
 exports.GenreView = GenreView;
 GenreView.propTypes = {
-  Movie: _propTypes.default.shape({
+  movie: _propTypes.default.shape({
     Genre: {
       Name: _propTypes.default.string.isRequired,
       Description: _propTypes.default.string.isRequired // ImagePath: PropTypes.string.isRequired,
@@ -52262,7 +52253,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52430" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51450" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
