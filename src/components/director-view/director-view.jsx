@@ -95,11 +95,11 @@ export class DirectorView extends React.Component {
 
 DirectorView.propTypes = {
   movie: PropTypes.shape({
-    Director: {
+    Director: PropTypes.shape ({
       Name: PropTypes.string.isRequired,
       Bio: PropTypes.string.isRequired,
       Birth: PropTypes.string,
       Death: PropTypes.string,
-    },
+    }),
   }),
 };
