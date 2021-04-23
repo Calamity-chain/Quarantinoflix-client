@@ -51451,8 +51451,9 @@ var DirectorView = /*#__PURE__*/function (_React$Component) {
       }, director.Director.Death)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-        variant: "link"
-      }, "Return"))), /*#__PURE__*/_react.default.createElement(_Col.default, {
+        className: "text-left",
+        variant: "danger"
+      }, "Return to Movies"))), /*#__PURE__*/_react.default.createElement(_Col.default, {
         className: "col-3"
       })), /*#__PURE__*/_react.default.createElement(_Container.default, null, /*#__PURE__*/_react.default.createElement("h4", {
         className: "mt-4"
@@ -51587,8 +51588,9 @@ var GenreView = /*#__PURE__*/function (_React$Component) {
       }, genre.Genre.Description)), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
         to: "/"
       }, /*#__PURE__*/_react.default.createElement(_Button.default, {
-        variant: "link"
-      }, "Return"))), /*#__PURE__*/_react.default.createElement(_Col.default, {
+        className: "text-left",
+        variant: "danger"
+      }, "Return to Movies"))), /*#__PURE__*/_react.default.createElement(_Col.default, {
         className: "col-3"
       })), /*#__PURE__*/_react.default.createElement(_Container.default, null, /*#__PURE__*/_react.default.createElement("h4", {
         className: "mt-4"
@@ -52051,7 +52053,12 @@ var MainView = /*#__PURE__*/function (_React$Component) {
           selectedMovie = _this$state.selectedMovie,
           user = _this$state.user,
           register = _this$state.register;
+
+      if (window.location.pathname === '/register') {
+        return /*#__PURE__*/_react.default.createElement(_registrationView.RegistrationView, null);
+      }
       /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
+
 
       if (!user) return /*#__PURE__*/_react.default.createElement(_loginView.LoginView, {
         onLoggedIn: function onLoggedIn(user) {
@@ -52062,10 +52069,6 @@ var MainView = /*#__PURE__*/function (_React$Component) {
       if (!movies) return /*#__PURE__*/_react.default.createElement("div", {
         className: "main-view"
       }); // if (!register) return <RegistrationView onRegister={(register) => this.onRegister(register)}/>;
-
-      if (window.location.pathname === '/register') {
-        return /*#__PURE__*/_react.default.createElement(_registrationView.RegistrationView, null);
-      }
 
       return /*#__PURE__*/_react.default.createElement(_Container.default, null, /*#__PURE__*/_react.default.createElement(_reactRouterDom.BrowserRouter, null, /*#__PURE__*/_react.default.createElement("div", {
         className: "main-view"
@@ -52144,15 +52147,13 @@ var MainView = /*#__PURE__*/function (_React$Component) {
             movies: movies
           });
         }
-      }), /*#__PURE__*/_react.default.createElement(_reactRouterDom.Route, {
-        path: true
-      }), /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
-        variant: "link",
-        className: "navbar-link",
+      }), /*#__PURE__*/_react.default.createElement("footer", null, /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+        variant: "link" // className="navbar-link"
+        ,
         onClick: function onClick() {
           return _this3.logOut();
         }
-      }, "Sign Out")))));
+      }, "Sign Out"))))));
     }
   }]);
 
