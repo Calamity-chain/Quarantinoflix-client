@@ -106,18 +106,18 @@ onBackClick() {
 render() {
   const { movies, selectedMovie, user, register } = this.state;
 
+  if(window.location.pathname === '/register'){
+    return <RegistrationView />
+  }
+
   /* If there is no user, the LoginView is rendered. If there is a user logged in, the user details are *passed as a prop to the LoginView*/
 
   if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
   
-
   // Before the movies have been loaded
   if (!movies) return <div className="main-view"/>;
 
-   // if (!register) return <RegistrationView onRegister={(register) => this.onRegister(register)}/>;
-   if(window.location.pathname === '/register'){
-    return <RegistrationView />
-  }
+  // if (!register) return <RegistrationView onRegister={(register) => this.onRegister(register)}/>;
 
   return (
     <Container>
@@ -125,7 +125,7 @@ render() {
     <div className="main-view">
       {/* ----------------------------VIEWS---------------------- */}
       <Row xl>
-
+        
         {/* LOGIN VIEW */}
     <Route exact path="/" render={() => {
       if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />;
@@ -134,8 +134,9 @@ render() {
       }/>
 
         {/* REGISTER VIEW */}
-    <Route path="/register" render={() => <RegistrationView />} />
 
+    <Route path="/register" render={() => <RegistrationView />} />
+        
         {/* MOVIE VIEW */}
     <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
         
@@ -177,14 +178,15 @@ render() {
         if (movies.length === 0) return;
         return <ProfileView movies={movies}/>
       }}/>
-    <Route path></Route>
-        <Button
+        <footer>
+      <Button
                       variant="link"
-                      className="navbar-link"
+                      // className="navbar-link"
                       onClick={() => this.logOut()}
                     >
                       Sign Out
                     </Button>
+                    </footer>
       </Row>
       </div>
       </Router>
