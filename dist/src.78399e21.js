@@ -53730,7 +53730,7 @@ function LoginView(props) {
     onChange: function onChange(e) {
       return setPassword(e.target.value);
     }
-  }, _defineProperty(_React$createElement, "type", "password"), _defineProperty(_React$createElement, "placeholder", "Enter Password"), _React$createElement))), /*#__PURE__*/_react.default.createElement("p", null, "Dont have an account?", /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
+  }, _defineProperty(_React$createElement, "type", "password"), _defineProperty(_React$createElement, "placeholder", "Enter Password"), _React$createElement))), /*#__PURE__*/_react.default.createElement("p", null, "Don't have an account?", /*#__PURE__*/_react.default.createElement(_reactBootstrap.Button, {
     variant: "light",
     onClick: function onClick() {
       return window.location.pathname = '/register';
