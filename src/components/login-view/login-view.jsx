@@ -54,7 +54,7 @@ export function LoginView(props) {
           />
         </Form.Group>
         <p>
-          Dont have an account?
+          Don't have an account?
           <Button variant="light" onClick={ () => window.location.pathname = '/register'}>
                 Register
           </Button>

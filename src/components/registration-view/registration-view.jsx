@@ -82,7 +82,12 @@ export function RegistrationView(props) {
             placeholder='Enter Birthday'
           />
         </Form.Group>
-
+        <p>
+          Already have an account?
+          <Button variant="light" onClick={ () => window.location.pathname = '/login'}>
+                Log in
+          </Button>
+        </p>
         <Button onClick={handleRegister} variant='primary' type='submit'>
           Submit
         </Button>
