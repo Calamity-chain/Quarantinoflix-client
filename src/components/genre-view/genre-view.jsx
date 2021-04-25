@@ -1,11 +1,8 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types';
+import {Row, Col, Card, Container, Button, Nav, Navbar }from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
+
 
 export class GenreView extends React.Component {
   constructor() {
@@ -15,32 +12,50 @@ export class GenreView extends React.Component {
   }
 
   render() {
-    const { movies, genre } = this.props;
+    const {  movies, genre } = this.props;
 
-    if (!genre) return null;
+    if (!genre) return <div className="main-view" />;
 
     return (
-      <Container className="wrapper container-fluid">
-      <Row>
-        <Col className="col-3" />
-        <Col className="genre-view container-fluid align-items-center col-6">
-          <div className="genre-title ">
-            {/* <span className="label">Name: </span> */}
-            <span className="value">{genre.Genre.Name}</span>
-          </div>
-          <div className="genre-description ">
-            {/* <span className="label">Description: </span> */}
-            <span className="value">{genre.Genre.Description}</span>
-          </div>
-          <Link to={`/`}>
-                    <Button className="text-left" variant="danger">
-                      Return to Movies
-                    </Button>
-                  </Link>
-        </Col>
-        <Col className="col-3" />
-      </Row>
-      <Container>
+      <Container fluid className="genre-view pb-5">
+        <Navbar sticky="top" className="px-5 py-0 mb-2">
+          <Navbar.Brand className="brand" href="/">QuarantinoFlix</Navbar.Brand>
+          <Nav className="ml-auto button-wrapper">
+            <Link to={'/'}>
+            <Button
+              type="button"
+              variant="danger"
+              className="mx-2">
+              Return to movies
+              </Button>
+            </Link>
+            <Link to={'/users/me'}>
+            <Button
+                      type="button"
+                      variant="btn btn-dark" >
+                      Profile
+                  </Button>
+            </Link>
+          </Nav>
+        </Navbar>
+
+        <Container fluid className="px-5">
+          <Row className="mb-5">
+            <Col>
+              <h1 className="brand my-auto">{genre.Genre.Name}</h1>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <h5>Description</h5>
+            </Col>
+          </Row>
+          <Row className="mb-5">
+            <Col className="description">
+              {genre.Genre.Description}
+            </Col>
+          </Row>
+          <Container>
         <h4 className="mt-4">Some {genre.Genre.Name} movies</h4>
         <div className="d-flex row mt-3 ml-2">
           {movies.map((movie) => {
@@ -65,11 +80,11 @@ export class GenreView extends React.Component {
                     </Card.Body>
                     <Card.Footer className="bg-white border-top-0">
                       <Link to={`/movies/${movie._id}`}>
-                        <Button
-                          variant="link"
+                        <Button type= "button"
+                          variant="outline-danger"
                           className="read-more-link pl-0"
                         >
-                          Read more
+                           Read more
                         </Button>
                       </Link>
                     </Card.Footer>
@@ -80,6 +95,8 @@ export class GenreView extends React.Component {
           })}
         </div>
       </Container>
+        </Container>
+      
     </Container>
   );
 }
@@ -94,3 +111,5 @@ movie: PropTypes.shape({
   }).isRequired,
 }),
 };
+
+

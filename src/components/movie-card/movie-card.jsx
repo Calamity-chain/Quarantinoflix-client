@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from 'react-bootstrap/Button';
 import { Card } from 'react-bootstrap';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
 
 import { Link } from "react-router-dom";
 
@@ -34,22 +33,6 @@ export class MovieCard extends React.Component {
   }
 }
 
-//     return (
-//       <Card
-//         onClick={() => onClick(movie)}
-//         border='danger'
-//         style={{ width: '200', height: 'auto' }}
-//       >
-//         <Card.Header>{movie.Title}</Card.Header>
-//         <img
-//           className='movie-poster'
-//           src={movie.imagePath}
-//           alt='movie poster'
-//         />
-//       </Card>
-//     );
-//   }
-// }
 
 MovieCard.propTypes = {
   movie: PropTypes.shape({
