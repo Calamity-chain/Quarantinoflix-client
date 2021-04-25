@@ -1,11 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Card from 'react-bootstrap/Card';
+import { Row, Col, Button, Nav, Navbar, Container, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
 import './director-view.scss';
 
 export class DirectorView extends React.Component {
@@ -22,35 +19,56 @@ export class DirectorView extends React.Component {
     if (!director) return null;
 
     return (
-      <Container className="wrapper container-fluid">
-        <Row>
-          <Col className="col-3" />
-          <Col className="director-view container-fluid align-items-center col-6">
-            <div className="director-title">
-              <span className="label">Name: </span>
-              <span className="value">{director.Director.Name}</span>
-            </div>
-            <div className="director-bio">
-              <span className="label">Bio: </span>
-              <span className="value">{director.Director.Bio}</span>
-            </div>
-            <div className="director-birth">
-              <span className="label">Born:  </span>
-              <span className="value">{director.Director.Birth}</span>
-            </div>
-            <div className="director-death">
-              <span className="label">Died:  </span>
-              <span className="value">{director.Director.Death}</span>
-            </div>
-            <Link to={`/`}>
-                    <Button className="text-left" variant="danger">
-                      Return to Movies
-                    </Button>
-                  </Link>
-          </Col>
-          <Col className="col-3" />
-        </Row>
-        <Container>
+      <Container fluid className="director-view pb-5">
+        <Navbar sticky="top" className="px-5 py-0 mb-2">
+          <Navbar.Brand className="brand" href="/">QuarantinoFlix</Navbar.Brand>
+          <Nav className="ml-auto button-wrapper">
+            <Link to={'/'}>
+            <Button
+              type="button"
+              variant="danger"
+              className="mx-2">
+              Return to movies
+              </Button>
+            </Link>
+            <Link to={'/users/me'}>
+            <Button
+                      type="button"
+                      variant="btn btn-dark" >
+                      Profile
+                  </Button>
+            </Link>
+          </Nav>
+        </Navbar>
+
+        <Container fluid className="px-5">
+          <Row className="mb-2">
+            <Col>
+              <h1 className="brand my-auto">{director.Director.Name}</h1>
+            </Col>
+          </Row>
+          <Row className="mb-4">
+            <Col>
+              Born in {( director.Director.Birth )}
+            </Col>
+          </Row>
+          <Row className="mb-4">
+            <Col>
+              Died in {( director.Director.Death )}
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <h5>Biography</h5>
+            </Col>
+          </Row>
+          <Row className="mb-5">
+            <Col className="description">
+              {director.Director.Bio}
+            </Col>
+          </Row>
+          <Row className="mb-3">
+          <Container>
           <h4 className="mt-4">Some {director.Director.Name} movies</h4>
           <div className="d-flex row mt-3 ml-1">
             {movies.map((movie) => {
@@ -76,7 +94,7 @@ export class DirectorView extends React.Component {
                       <Card.Footer className="bg-white border-top-0">
                         <Link to={`/movies/${movie._id}`}>
                           <Button
-                            variant="link"
+                            variant="outline-danger"
                             className="read-more-link pl-0"
                           >
                           Read more
@@ -89,6 +107,8 @@ export class DirectorView extends React.Component {
               }
             })}
           </div>
+        </Container>
+          </Row>
         </Container>
       </Container>
     );

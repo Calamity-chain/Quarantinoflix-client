@@ -1,28 +1,23 @@
 import React from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 
-import { BrowserRouter as Router, Route} from "react-router-dom";
-
+import { BrowserRouter as Router, Route, Link} from "react-router-dom";
+import { Row, Container, Navbar, Nav, Col, Card, Button } from 'react-bootstrap';
 //#0
-import { setMovies } from '../../actions/actions';
-//yet to create
-import MoviesList from '../movies-list/movies-list';
+import { setMovies, setUser } from '../../actions/actions';
 //#1
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { Card, Button } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-
-import { RegistrationView } from '../registration-view/registration-view';
-import { LoginView } from '../login-view/login-view';
-import { MovieView } from '../movie-view/movie-view';
+import MoviesList from '../movies-list/movies-list';
+import  ProfileView  from '../profile-view/profile-view';
+import  RegistrationView  from '../registration-view/registration-view';
+import  LoginView from '../login-view/login-view';
+import  MovieView  from '../movie-view/movie-view';
+//
 import { DirectorView } from '../director-view/director-view';
 import { GenreView } from '../genre-view/genre-view';
-import { ProfileView } from '../profile-view/profile-view';
 
-import { Link } from "react-router-dom"; 
 
 import './main-view.scss';
 
@@ -33,17 +28,19 @@ class MainView extends React.Component {
     super();
   
     //#3 movies state removed
-    this.state = {
-      user: null,
-    };
+    this.state = {};
   }
 
   componentDidMount() {
     let accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      this.setState({
-        user: localStorage.getItem('user')
-      });
+      this.props.setUser( {
+        Username: localStorage.getItem( 'username' ),
+        Password: localStorage.getItem( 'password' ),
+        Email: localStorage.getItem( 'email' ),
+        Dob: localStorage.getItem( 'dob' ),
+        FavoriteMovies: JSON.parse( localStorage.getItem( 'favoriteMovies' ) )
+      } );
       this.getMovies(accessToken);
     }
   }
@@ -66,12 +63,21 @@ getMovies(token) {
 
 onLoggedIn(authData) {
   console.log(authData);
-  this.setState({
-    user: authData.user.Username
-  });
-  localStorage.setItem('token', authData.token);
-  localStorage.setItem('user', authData.user.Username);
-  this.getMovies(authData.token);
+  this.props.setUser( {
+    Username: authData.user.Username,
+    Password: authData.user.Password,
+    Email: authData.user.Email,
+    Dob: authData.user.Birthday,
+    FavoriteMovies: authData.user.FavoriteMovies
+  } );
+
+  localStorage.setItem( 'favoriteMovies', JSON.stringify( authData.user.FavoriteMovies ) );
+  localStorage.setItem( 'token', authData.token );
+  localStorage.setItem( 'username', authData.user.Username );
+  localStorage.setItem( 'password', authData.user.Password );
+  localStorage.setItem( 'email', authData.user.Email );
+  localStorage.setItem( 'dob', authData.user.Birthday );
+  this.getMovies( authData.token );
 }
 
 
@@ -84,36 +90,42 @@ onMovieClick(movie) {
 }
 
 
-//When a user logs out
+//When a user logs out its localStorage keys will be deleted
 logOut() {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
-  this.setState({
-    user: null,
-  });
-  console.log("logout successful");
-  alert("You have been successfully logged out");
-  window.open("/", "_self");
-}
+  localStorage.clear();
+    this.props.setUser( {} );
+    window.open( '/', '_self' );
+  }
+
+
+  onMovieDel() {
+    this.setState( {
+      user: {
+        ...this.state.user,
+        favoriteMovies: JSON.parse( localStorage.getItem( 'favoriteMovies' ) )
+      }
+    } );
+  }
 
 //When a user registers
-onRegister(register) {
-  this.setState({
-    register,
-  });
-}
+// onRegister(register) {
+//   this.setState({
+//     register,
+//   });
+// }
 
-onBackClick() {
-  this.setState({
-    selectedMovie: null
-  });
-}
+// onBackClick() {
+//   this.setState({
+//     selectedMovie: null
+//   });
+// }
  
 
 
 render() {
-  let {movies} = this.props;
-  let {user, selectedMovie, register } = this.state;
+  let {movies, user} = this.props;
+  let { selectedMovie, register } = this.state;
+  let accessToken = localStorage.getItem( 'token' );
 
   if(window.location.pathname === '/register'){
     return <RegistrationView />
@@ -136,24 +148,57 @@ render() {
       <Row xl>
         
         {/* LOGIN VIEW */}
-        <Route exact path="/" render={() => {
-            if (!user) return <Col>
-              <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
-            </Col>
-            if (movies.length === 0) return <div className="main-view" />;
-            // #6
-            return <MoviesList movies={movies}/>;
-          }} />
+        <Route exact path={["/", "/login"]} render={() => {
+          if ( !accessToken ) return (
+            <LoginView onLoggedIn={data => this.onLoggedIn( data )} />
+          );
+          return (
+            <Container fluid className="main-view pb-5">
+              <Navbar sticky="top" className="px-5 py-0 mb-2">
+                <Navbar.Brand className="brand" href="/">QuarantinoFlix</Navbar.Brand>
+                <Nav className="ml-auto button-wrapper">
+                  <Link to={'/users/me'}>
+                    <Button
+                      type="button"
+                      variant="btn btn-dark" >
+                      Profile
+                  </Button>
+                  </Link>
+                  <Button
+                      type="button"
+                      variant="outline-dark"
+                      // className="navbar-link"
+                      onClick={() => this.logOut()}
+                    >
+                      Sign Out
+                    </Button>
+                </Nav>
+              </Navbar>
+              <Row className="px-5 py-3">
+                <MoviesList movies={movies} />
+              </Row>
+            </Container>
+          );
+        }} />
 
         {/* REGISTER VIEW */}
 
-    <Route path="/register" render={() => <RegistrationView />} />
+        <Route path="/register" component={RegistrationView} />
         
         {/* MOVIE VIEW */}
-    <Route path="/movies/:movieId" render={({match}) => <MovieView movie={movies.find(m => m._id === match.params.movieId)}/>}/>
-        
+        <Route path="/movies/:movieId"
+          render={( { match } ) => {
+            return <MovieView
+              onClick={() => this.LogOut()}
+              movie={movies.find( m => m._id === match.params.movieId )} />;
+          }
+          } />
         {/* GENRE VIEW */}
-    <Route
+        {/* <Route path="/genres/:title" render={( { match } ) => {
+          return <GenreView onClick={() => this.LogOut()} genre={movies.find( m => m.Genre.Name === match.params.name ).Genre} movies={movies} />;
+        }
+        } /> */}
+           <Route
               path="/genres/:name"
               render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
@@ -169,7 +214,10 @@ render() {
             />
 
             {/* DIRECTOR VIEW */}
-    <Route
+            {/* <Route path="/directors/:name" render={( { match } ) => {
+          return <DirectorView onClick={() => this.LogOut()} movie={movies.find( d => d.Director.Name === match.params.name )} movies={movies} />;
+        }} /> */}
+        <Route
               path="/directors/:name"
               render={({ match }) => {
                 if (!movies) return <div className="main-view" />;
@@ -183,24 +231,20 @@ render() {
                 );
               }}
             />
+
              {/* PROFILE VIEW */}
-    <Route exact path = "/users/:username"
-      render={() => {
-        if (!user) return <LoginView onLoggedIn={(data) => this.onLoggedIn(data)}/>;
-        if (movies.length === 0) return;
-        return <ProfileView movies={movies}/>
-      }}/>
-        <footer>
-      <Button
-                      variant="link"
-                      // className="navbar-link"
-                      onClick={() => this.logOut()}
-                    >
-                      Sign Out
-                    </Button>
-                    </footer>
+             <Route path="/users/me" render={( { match } ) => {
+          return <ProfileView
+            onLogout={() => this.LogOut()}
+            onMovieDel={() => this.onMovieDel()}
+            user={user}
+            movies={movies} />
+        }} />
       </Row>
       </div>
+      <footer className="fixed-bottom py-3 text-center">
+          <p className="my-auto">QuarantinoFlix Services 2021. All rights reserved &#169;</p>
+        </footer>
       </Router>
       </Container>
     );
@@ -209,9 +253,22 @@ render() {
 
 //#7 
 let mapStateToProps = state => {
-  return { movies: state.movies }
+  return { movies: state.movies,
+  user: state.user }
 } 
 
 //#8
-export default connect (mapStateToProps, { setMovies } )
+export default connect (mapStateToProps, { setMovies, setUser } )
 (MainView);
+
+MainView.propTypes = {
+  movies: PropTypes.array,
+  setMovies: PropTypes.func.isRequired,
+  setUser: PropTypes.func.isRequired,
+  user: PropTypes.shape( {
+    Username: PropTypes.string,
+    Password: PropTypes.string,
+    Email: PropTypes.string,
+    Dob: PropTypes.Date
+  } )
+}
