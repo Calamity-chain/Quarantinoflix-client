@@ -1,4 +1,4 @@
-#QuarantinoFlix(client)
+<h1>QuarantinoFlix(client)</h1>
 QuarantinoFlix(client) App runs using Build TOOL Parcel and Babel
 
 <h1> Project description </h1>
