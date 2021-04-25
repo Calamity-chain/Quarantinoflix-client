@@ -29,16 +29,16 @@ app will be run on: localhost:1234
 
 
 <h1> Dependencies </h1>
-->React
-->ReactDOM
-->React-Bootstrap
-->Axios
-->PropTypes
-->Redux
+->React <br>
+->ReactDOM <br>
+->React-Bootstrap <br>
+->Axios <br>
+->PropTypes <br>
+->Redux <br>
 
-<h2>Dev dependencies<h2>
-->Babel
-->Sass
+<h2>Dev dependencies</h2>
+->Babel <br>
+->Sass <br>
 
 <h1> API </h1>
 This project connects to this API 
