@@ -41,8 +41,8 @@ app will be run on: localhost:1234
 ->Sass <br>
 
 <h1> API </h1>
-This project connects to this API 
-https://github.com/Calamity-chain/Quarantino
+This project connects to this API <br>
+https://github.com/Calamity-chain/Quarantino <br>
 https://quarantinoflix.herokuapp.com/
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d970e449-da3e-4f43-b5e2-19ab9b9d34fd/deploy-status)](https://app.netlify.com/sites/quarantinoflix/deploys)
