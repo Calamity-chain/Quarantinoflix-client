@@ -53980,10 +53980,7 @@ function ProfileView(props) {
       type: "button"
     }, "Remove"))))));
   }))));
-} // ProfileView.propTypes = {
-//   movies: PropTypes.array.isRequired,
-// };
-
+}
 
 var _default = (0, _reactRedux.connect)(mapStateToProps, {
   setUser: _actions.setUser,

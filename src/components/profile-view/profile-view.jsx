@@ -344,9 +344,7 @@ function ProfileView (props) {
       </div>
     )
 }
-// ProfileView.propTypes = {
-//   movies: PropTypes.array.isRequired,
-// };
+
 
 export default connect( mapStateToProps, { setUser, togglePw } )( ProfileView );
 

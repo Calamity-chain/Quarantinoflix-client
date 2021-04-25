@@ -214,9 +214,6 @@ render() {
             />
 
             {/* DIRECTOR VIEW */}
-            {/* <Route path="/directors/:name" render={( { match } ) => {
-          return <DirectorView onClick={() => this.LogOut()} movie={movies.find( d => d.Director.Name === match.params.name )} movies={movies} />;
-        }} /> */}
         <Route
               path="/directors/:name"
               render={({ match }) => {
