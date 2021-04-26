@@ -29,7 +29,7 @@ function ProfileView (props) {
 
   //list of current user favorite movies
   const favoriteMovieList = movies.filter( movie => {
-    return user.FavoriteMovies.includes(movie._id)
+    return user.FavoriteMovies && user.FavoriteMovies.includes(movie._id)
   });
 
   const updateUser = (e) => {

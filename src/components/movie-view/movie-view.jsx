@@ -19,7 +19,7 @@ class MovieView extends React.Component {
 
 addFavorite(movie) {
   let token = localStorage.getItem( 'token' );
-  if ( this.props.user.FavoriteMovies.indexOf( movie._id ) > -1 ) {
+  if ( this.props.user.FavoriteMovies && this.props.user.FavoriteMovies.indexOf( movie._id ) > -1 ) {
     alert( `${movie.Title} is already one of your favorites.` );
   } else {
     axios.post( `https://quarantinoflix.herokuapp.com/users/${this.props.user.Username}/movies/${movie._id}`, {},
@@ -27,10 +27,17 @@ addFavorite(movie) {
         headers: { Authorization: `Bearer ${token}` }
       } )
       .then( () => {
-        this.props.setUser( {
-          ...this.props.user,
-          FavoriteMovies: [movie._id, ...this.props.user.FavoriteMovies]
-        } );
+        if (this.props.user.FavoriteMovies) {
+          this.props.setUser( {
+            ...this.props.user,
+            FavoriteMovies: [movie._id, ...this.props.user.FavoriteMovies]
+          });
+        } else {
+          this.props.setUser( {
+            ...this.props.user,
+            FavoriteMovies: [movie._id]
+          });
+        }        
         alert( `${movie.Title} added to your Favorites!` );
         localStorage.setItem( 'favoriteMovies', JSON.stringify( this.props.user.FavoriteMovies ) );
       } )

@@ -53633,7 +53633,7 @@ function ProfileView(props) {
 
 
   var favoriteMovieList = movies.filter(function (movie) {
-    return user.FavoriteMovies.includes(movie._id);
+    return user.FavoriteMovies && user.FavoriteMovies.includes(movie._id);
   });
 
   var updateUser = function updateUser(e) {
@@ -54672,7 +54672,7 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
 
       var token = localStorage.getItem('token');
 
-      if (this.props.user.FavoriteMovies.indexOf(movie._id) > -1) {
+      if (this.props.user.FavoriteMovies && this.props.user.FavoriteMovies.indexOf(movie._id) > -1) {
         alert("".concat(movie.Title, " is already one of your favorites."));
       } else {
         _axios.default.post("https://quarantinoflix.herokuapp.com/users/".concat(this.props.user.Username, "/movies/").concat(movie._id), {}, {
@@ -54680,9 +54680,15 @@ var MovieView = /*#__PURE__*/function (_React$Component) {
             Authorization: "Bearer ".concat(token)
           }
         }).then(function () {
-          _this2.props.setUser(_objectSpread(_objectSpread({}, _this2.props.user), {}, {
-            FavoriteMovies: [movie._id].concat(_toConsumableArray(_this2.props.user.FavoriteMovies))
-          }));
+          if (_this2.props.user.FavoriteMovies) {
+            _this2.props.setUser(_objectSpread(_objectSpread({}, _this2.props.user), {}, {
+              FavoriteMovies: [movie._id].concat(_toConsumableArray(_this2.props.user.FavoriteMovies))
+            }));
+          } else {
+            _this2.props.setUser(_objectSpread(_objectSpread({}, _this2.props.user), {}, {
+              FavoriteMovies: [movie._id]
+            }));
+          }
 
           alert("".concat(movie.Title, " added to your Favorites!"));
           localStorage.setItem('favoriteMovies', JSON.stringify(_this2.props.user.FavoriteMovies));
