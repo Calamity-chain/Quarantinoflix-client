@@ -43,6 +43,7 @@ function RegistrationView(props) {
           const data = response.data;
           console.log( data );
           localStorage.setItem( 'username', data.Username );
+          alert( `${data.Username} succesfully registered, please log in to your account!` );
           window.open( '/', '_self' );
         } )
         .catch( e => {
