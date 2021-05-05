@@ -240,7 +240,7 @@ render() {
       </Row>
       </div>
       <footer className="fixed-bottom py-3 text-center">
-          <p className="my-auto">QuarantinoFlix Services 2021. All rights reserved &#169;</p>
+          <p className="my-auto">QuarantinoFlix Services {new Date().getFullYear()}. All rights reserved &#169;</p>
         </footer>
       </Router>
       </Container>
