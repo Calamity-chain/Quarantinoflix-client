@@ -25,15 +25,14 @@ function LoginView( props ) {
     e.preventDefault();
     let error = document.querySelector( '.error-message' );
     if ( error ) {
-      let container = document.querySelector( '.btn-login' ).parentElement;
-      let note = document.createElement( 'div' );
+      const container = document.querySelector( '.btn-login' ).parentElement;
+      const note = document.createElement( 'div' );
       note.classList.add( 'note-message' );
       note.innerText = `No login possible due to form errors. \rPlease rectify your inputs.`;
       container.appendChild( note );
       setTimeout( function () { container.removeChild( note ) }, 4000 );
       return false;
     } else {
-      console.log( user.Username, user.Password );
       /* send request to the server for authentication */
       axios.post( 'https://quarantinoflix.herokuapp.com/login', {},
         {
@@ -99,10 +98,10 @@ function LoginView( props ) {
   } );
 
   const changeState = () => {
-    var oldState = tglpw.type;
-    var isTextOrHide = ( oldState === 'password' );
-    var newState = ( isTextOrHide ) ? 'text' : 'password';
-    var newWord = ( isTextOrHide ) ? 'Hide' : 'Show';
+    let oldState = tglpw.type;
+    let isTextOrHide = ( oldState === 'password' );
+    let newState = ( isTextOrHide ) ? 'text' : 'password';
+    let newWord = ( isTextOrHide ) ? 'Hide' : 'Show';
     props.togglePw( { type: newState, word: newWord } );
   }
 
