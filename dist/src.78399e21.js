@@ -54083,6 +54083,7 @@ function RegistrationView(props) {
         var data = response.data;
         console.log(data);
         localStorage.setItem('username', data.Username);
+        alert("".concat(data.Username, " succesfully registered, please log in to your account!"));
         window.open('/', '_self');
       }).catch(function (e) {
         console.log('error registering the user');
@@ -54393,9 +54394,7 @@ function LoginView(props) {
       }, 4000);
       return false;
     } else {
-      console.log(user.Username, user.Password);
       /* send request to the server for authentication */
-
       _axios.default.post('https://quarantinoflix.herokuapp.com/login', {}, {
         params: {
           Username: user.Username,
@@ -55408,7 +55407,7 @@ var MainView = /*#__PURE__*/function (_React$Component) {
         className: "fixed-bottom py-3 text-center"
       }, /*#__PURE__*/_react.default.createElement("p", {
         className: "my-auto"
-      }, "QuarantinoFlix Services 2021. All rights reserved \xA9"))));
+      }, "QuarantinoFlix Services ", new Date().getFullYear(), ". All rights reserved \xA9"))));
     }
   }]);
 
@@ -55548,7 +55547,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53060" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53405" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
